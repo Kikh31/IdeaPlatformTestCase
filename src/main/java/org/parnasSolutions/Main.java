@@ -21,8 +21,7 @@ public class Main {
         }
 
         ObjectMapper objectMapper = new ObjectMapper();
-        Map<String, List<Ticket>> rootMap = objectMapper.readValue(inputPath.toFile(), new TypeReference<Map<String, List<Ticket>>>() {
-        });
+        Map<String, List<Ticket>> rootMap = objectMapper.readValue(inputPath.toFile(), new TypeReference<>() {});
         List<Ticket> tickets = rootMap.get("tickets").stream()
                 .filter(ticket -> ticket.origin.equals("VVO") && ticket.destination.equals("TLV"))
                 .toList();
@@ -60,7 +59,7 @@ public class Main {
 
         Double averagePrice = calculateAvgPrice(sortedPricesArray);
         Double medianPrice = calculateMedianPrice(sortedPricesArray);
-        Double diffBetweenAvgAndMedianPrice = averagePrice - medianPrice;
+        double diffBetweenAvgAndMedianPrice = averagePrice - medianPrice;
         System.out.println("Разницa между средней ценой и медианой для полета между городами Владивосток и Тель-Авив: " + diffBetweenAvgAndMedianPrice);
     }
 
@@ -75,6 +74,4 @@ public class Main {
     private static Double calculateAvgPrice(int[] array) {
         return Arrays.stream(array).average().orElse(0.0);
     }
-
-
 }
